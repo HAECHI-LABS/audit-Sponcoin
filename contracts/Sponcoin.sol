@@ -4,6 +4,7 @@ pragma solidity 0.8.0;
 
 import "./KIP7/KIP7Lockable.sol";
 import "./KIP7/KIP7Mintable.sol";
+import "./KIP7/KIP7Burnable.sol";
 import "./interfaces/IKIP7Metadata.sol";
 import "./library/KIP7Pausable.sol";
 import "./library/Freezable.sol";
@@ -12,6 +13,7 @@ import "./library/Address.sol";
 contract Sponcoin is
     KIP7Lockable,
     KIP7Mintable,
+    KIP7Burnable,
     IKIP7Metadata,
     Freezable
 {

@@ -46,6 +46,16 @@ abstract contract KIP7 is KIP13, IKIP7 {
         success = true;
     }
 
+    function _burn(address burned, uint256 amount)
+        internal
+        returns (bool success)
+    {
+        _balances[burned] = _balances[burned] - amount;
+        _totalSupply = _totalSupply - amount;
+        emit Transfer(burned, address(0), amount);
+        success = true;
+    }
+
     /*
    * public view functions to view common data
    */
