@@ -2,32 +2,32 @@
 
 pragma solidity 0.8.0;
 
-import "./ERC20.sol";
-import "../library/Pausable.sol";
+import "./KIP7.sol";
+import "../library/KIP7Pausable.sol";
 
-abstract contract ERC20Mintable is ERC20, Pausable {
-    event Mint(address indexed receiver, uint256 amount);
+abstract contract KIP7Mintable is KIP7, KIP7Pausable {
+    event Mint(address indexed _to, uint256 _amount);
     event MintFinished();
 
     bool internal _mintingFinished;
     ///@notice mint token
     ///@dev only owner can call this function
-    function mint(address receiver, uint256 amount)
+    function mint(address _to, uint256 _amount)
         external
         onlyOwner
         whenNotPaused
         returns (bool success)
     {
         require(
-            receiver != address(0),
-            "ERC20Mintable/mint : Should not mint to zero address"
+            _to != address(0),
+            "KIP7Mintable/mint : Should not mint to zero address"
         );
         require(
             !_mintingFinished,
-            "ERC20Mintable/mint : Cannot mint after finished"
+            "KIP7Mintable/mint : Cannot mint after finished"
         );
-        _mint(receiver, amount);
-        emit Mint(receiver, amount);
+        _mint(_to, _amount);
+        emit Mint(_to, _amount);
         success = true;
     }
 
@@ -40,7 +40,7 @@ abstract contract ERC20Mintable is ERC20, Pausable {
     {
         require(
             !_mintingFinished,
-            "ERC20Mintable/finishMinting : Already finished"
+            "KIP7Mintable/finishMinting : Already finished"
         );
         _mintingFinished = true;
         emit MintFinished();
