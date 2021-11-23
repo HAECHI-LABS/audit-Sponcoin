@@ -10,3 +10,7 @@ allFiredEvents
 crytic-export
 .coverage_artifacts
 .DS_Store
+.env
+typechain/
+deployments/
+yarn.lock

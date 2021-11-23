@@ -1,8 +1,12 @@
-import "@nomiclabs/hardhat-waffle";
-import "solidity-coverage";
-import "hardhat-spdx-license-identifier";
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
+import { HardhatUserConfig } from 'hardhat/types';
+
+import 'dotenv/config';
+import 'hardhat-deploy';
+import '@typechain/hardhat';
+import '@nomiclabs/hardhat-ethers';
+import '@nomiclabs/hardhat-waffle';
+
+const dotenv = require('dotenv');
 
 export default {
   spdxLicenseIdentifier: {
@@ -10,29 +14,40 @@ export default {
     runOnCompile: true,
   },
   solidity: {
-    compilers :[
+    compilers: [
       {
-        version: "0.8.0",
+        version: '0.8.0',
         settings: {
-          optimizer : {
+          evmVersion: 'constantinople',
+          optimizer: {
             enabled: true,
-            runs: 200
-          }
-        }
-      }    ]
+            runs: 200,
+          },
+        },
+      },
+    ],
+  },
+  namedAccounts: {
+    deployer: 0,
   },
   networks: {
     hardhat: {
       gas: 10000000,
       accounts: {
-        accountsBalance: "1000000000000000000000000"
+        accountsBalance: '1000000000000000000000000',
       },
       allowUnlimitedContractSize: true,
-      timeout: 1000000
+      timeout: 1000000,
     },
-    coverage: {
-      url: 'http://localhost:8555'
+    cypress: {
+      url: 'http://localhost:8651/',
+      chainId: 1001,
+      live: true,
+      saveDeployments: true,
+      accounts: {
+        mnemonic: process.env.MNEMONIC,
+      },
+      tags: ['staging'],
     }
-  }
+  },
 };
-
