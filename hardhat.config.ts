@@ -6,7 +6,8 @@ import '@typechain/hardhat';
 import '@nomiclabs/hardhat-ethers';
 import '@nomiclabs/hardhat-waffle';
 
-const dotenv = require('dotenv');
+/* KLAYTN CYPRESS PRIVATE KEY */
+const CYPRESS_PRIVATE_KEY: string = "";
 
 export default {
   spdxLicenseIdentifier: {
@@ -44,9 +45,7 @@ export default {
       chainId: 1001,
       live: true,
       saveDeployments: true,
-      accounts: {
-        mnemonic: process.env.MNEMONIC,
-      },
+      accounts: [`0x${CYPRESS_PRIVATE_KEY}`],
       tags: ['staging'],
     }
   },
